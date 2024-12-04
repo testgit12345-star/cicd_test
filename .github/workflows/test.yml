@@ -1,0 +1,13 @@
+name: Hello World Workflow
+
+# Trigger this workflow on every push to the repository
+on:
+  push:
+
+jobs:
+  say-hello:
+    runs-on: ubuntu-latest
+    steps:
+      # Step to print "Hello World"
+      - name: Echo Hello World
+        run: echo "Hello World"
